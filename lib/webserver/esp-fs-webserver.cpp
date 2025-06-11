@@ -326,12 +326,16 @@ void FSWebServer::doWifiConnection()
         WiFi.disconnect();
     }
 
-    if (ssid.length() && pass.length())
+    if (ssid.length())
     {
         // Try to connect to new ssid
         Serial.print("\nConnecting to ");
         Serial.println(ssid);
-        WiFi.begin(ssid.c_str(), pass.c_str(), 0, 0, true);
+        if (pass.length() > 0) {
+            WiFi.begin(ssid.c_str(), pass.c_str(), 0, 0, true);
+        } else {
+            WiFi.begin(ssid.c_str(), "", 0, 0, true);
+        }
 
         uint32_t beginTime = millis();
         while (WiFi.status() != WL_CONNECTED)
