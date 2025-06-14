@@ -230,6 +230,11 @@ void loadDevSettings()
             }
         }
 
+        if (doc.containsKey("battery_monitoring"))
+        {
+            BATTERY_MONITORING = doc["battery_monitoring"].as<bool>();
+        }
+
         file.close();
     }
     else
