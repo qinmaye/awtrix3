@@ -431,6 +431,7 @@ bool SENSOR_READING = true;
 bool SENSORS_STABLE = false;
 bool DFPLAYER_ACTIVE = false;
 bool ROTATE_SCREEN = false;
+bool BATTERY_MONITORING = true;
 uint8_t TIME_MODE = 1;
 uint8_t SCROLL_SPEED = 100;
 uint32_t TIME_COLOR = 0;

@@ -22,6 +22,7 @@ The JSON object has the following properties:
 | `mirror_screen` | boolean | Mirrors the screen | `false` |
 | `temp_dec_places` | integer | Number of decimal places for temperature measurements | `0` |
 | `sensor_reading` | boolean | Enables or disables the reading of the Temp&Hum sensor | `true` |
+| `battery_monitoring` | boolean | Enables or disables the battery monitoring | `true` |
 | `temp_offset` | float | Sets the offset for the internal temperature measurement | `-9` |
 | `hum_offset` | float | Sets the offset for the internal humidity measurement | `0` |
 | `min_brightness` | integer | Sets minimum brightness level for the Autobrightness control | `2` |

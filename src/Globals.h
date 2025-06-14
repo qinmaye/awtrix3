@@ -119,6 +119,7 @@ extern bool UPDATE_CHECK;
 extern bool SENSOR_READING;
 extern bool SENSORS_STABLE;
 extern bool ROTATE_SCREEN;
+extern bool BATTERY_MONITORING;
 extern long STATS_INTERVAL;
 extern uint8_t TIME_MODE;
 extern uint8_t SCROLL_SPEED;
