@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Cache pip
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -26,13 +26,13 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Cache PlatformIO
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.platformio
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
 
       - name: Install PlatformIO
         run: |
@@ -86,38 +86,15 @@ jobs:
           name: awtrix2_upgrade_firmware
           path: .pio/build/awtrix2_upgrade/firmware.bin
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
         with:
+          files: |
+            .pio/build/ulanzi/firmware.bin
+            .pio/build/awtrix2_upgrade/firmware.bin
           tag_name: ${{ steps.version_number.outputs.firmware_version }}
-          release_name: Release ${{ steps.version_number.outputs.firmware_version }}
-          draft: false
-          prerelease: false
-
-      - name: Upload ulanzi Release Asset
-        id: upload-ulanzi-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .pio/build/ulanzi/firmware.bin
-          asset_name: ulanzi_TC001_${{ steps.version_number.outputs.firmware_version }}.bin
-          asset_content_type: application/octet-stream
-
-      - name: Upload awtrix2_upgrade Release Asset
-        id: upload-awtrix2_upgrade-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: .pio/build/awtrix2_upgrade/firmware.bin
-          asset_name: old_awtrix2_conversion_${{ steps.version_number.outputs.firmware_version }}.bin
-          asset_content_type: application/octet-stream
+          name: Release ${{ steps.version_number.outputs.firmware_version }}
 
       - name: Commit
         id: commit   
